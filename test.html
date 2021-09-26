@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+    .container {
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 100%;
+      height: 100%;
+    }
+
+    .list {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      list-style: none;
+      width: 80%;
+      margin: 0 auto 0;
+      padding: 0;
+      
+    }
+
+    .item {
+      width: 20%;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      height: 200px;
+      border-radius: 10px;
+    }
+
+  </style>
+</head>
+<body>
+ 
+  <div class="container">
+    <ul id="ul" class="list"></ul>
+  </div>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.js"></script>
+<script>
+
+const body = document.body
+// body.style.height = window.innerHeight + 'px'
+// body.style.overflow = 'hidden'
+const ul = document.getElementById('ul')
+const fragment = document.createDocumentFragment()
+
+const createLi = (backgroundColor) => {
+  const li = document.createElement('li')
+  li.classList.add('item')
+  li.style.backgroundColor = backgroundColor
+  return li
+} 
+
+const random = (min, max) => {
+  return Math.round(Math.random() * (max - min) + min)
+}
+
+
+let n = 200
+
+const color = () => {
+  const cs = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f']
+  const max = cs.length - 1
+  const hex = 'ffffff'
+  const list = hex.split('').map(() => {
+    return cs[random(0, max)]
+  })
+  return '#' + list.join('')
+}
+
+while(n--) {
+  fragment.appendChild(createLi(color()))
+}
+
+ul.appendChild(fragment)
+// setTimeout(() => {
+//   ScrollReveal().sync();
+// }, 100)
+const sr = init()
+
+function init() {
+  const sr = ScrollReveal({
+    reset: true,
+    distance: '100px',
+    duration: 1000,
+    opacity: 0,
+    scale: 0.8,
+    delay: 100,
+    cleanup: true
+  })
+  sr.reveal('.item')
+  return sr
+}
+
+
+</script>
+</body>
+</html>
