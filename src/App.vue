@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <side-menu></side-menu>
+    <qa></qa>
+    <!-- <side-menu></side-menu> -->
     <div class="pp-container">
       <!-- <ul class="list">
         <li v-for="item in items" :key="item.id" class="item" :style="{backgroundColor: item.color}"></li>
@@ -13,13 +14,15 @@
 import scrollReveal from 'scrollreveal'
 import sr from '@/dr.js'
 import SideMenu from './components/menu/menu.vue'
+import Qa from './components/qa'
 import data from './components/menu/data'
 
 
 export default {
   name: 'app',
   components: {
-    SideMenu
+    SideMenu,
+    Qa
   },
   directives: {
     sr: sr({
@@ -83,7 +86,10 @@ export default {
 </script>
 
 <style>
-
+#app{
+  box-sizing: border-box;
+  padding: 15px;
+}
 .pp-container {
   width: 100%;
   height: 100%;
