@@ -1,16 +1,27 @@
 <template>
-  <div id="app">
-    <qa></qa>
-    <!-- <side-menu></side-menu> -->
+  <div id="app" class="md-github__body">
     <div class="pp-container">
+    <!-- <qa></qa> -->
+    <!-- <side-menu></side-menu> -->
+    <!-- <div class="pp-container"> -->
       <!-- <ul class="list">
         <li v-for="item in items" :key="item.id" class="item" :style="{backgroundColor: item.color}"></li>
       </ul> -->
+    <!-- </div> -->
+    <div class="md" v-html="html">
+
+    </div>
     </div>
   </div>
 </template>
 
 <script>
+import MarkdownIt from 'markdown-it'
+import markdownItGithub from 'markdown-it-github'
+import markdownItAnchor from 'markdown-it-anchor'
+import markdownItTocDoneRight from 'markdown-it-toc-done-right'
+import markdownItPdf from "markdown-it-pdf"
+
 import scrollReveal from 'scrollreveal'
 import sr from '@/dr.js'
 import SideMenu from './components/menu/menu.vue'
@@ -37,7 +48,7 @@ export default {
   })
   },
   data() {
-    return { data }
+    return { data, html: '' }
   },
   computed: {
     items() {
@@ -50,23 +61,56 @@ export default {
         })
       }
       return result
-    }
+    },
+    publicPath(){
+      return process.env.BASE_URL.replace(/\/$/, '')
+    } 
+  },
+  created() {
+    const md = new MarkdownIt()
+    md
+    .use(markdownItGithub)
+    .use(markdownItAnchor)
+    .use(markdownItTocDoneRight, {
+      level: [1, 2],
+      listType: 'ul',
+      format: (x, htmlencode) => {
+        console.log('x: ', x)
+        console.log('htmlencode: ', htmlencode)
+        return x
+      },
+      callback: (html, ast) => {
+        console.log('html: ', html)
+        console.log('ast: ', ast)
+        const af = html.replace(/nav/g, 'div')
+        console.log('af: ', af)
+        return af
+      }
+    })
+    // .use(markdownItPdf)
+    // .use(markdownItTocAndAnchor, {
+    //   tocPattern: /\[toc\]/i,
+
+    // })
+    this.md = md
   },
   mounted() {
-     this.sr = new scrollReveal({
-    reset: true,
-    distance: '100px',
-    duration: 1000,
-    opacity: 0,
-    scale: 0.8,
-    delay: 100,
-    cleanup: true,
-    container: '.pp-container'
-  })
-  this.sr.reveal('.item')
+    console.log('process.env.BASE_URL: ', process.env.BASE_URL)
+    console.log('this.publicPath: ', this.publicPath)
+    import(`!!raw-loader!@/assets/md/axios.md`).then(m => {
+      console.log(m)
+      this.html = this.md.render(m.default)
+      console.log(this.html)
+    })
+
+    // import(`!!raw-loader!@/assets/test.txt`).then(m => {
+    //   console.log(m)
+    //   this.html = this.md.render(m.default)
+    //   console.log(this.html)
+    // })
   },
   beforeDestroy() {
-    this.sr.destroy()
+    // this.sr.destroy()
   },
   methods: {
     random(min, max) {
@@ -86,6 +130,11 @@ export default {
 </script>
 
 <style>
+
+.official {
+
+}
+
 #app{
   box-sizing: border-box;
   padding: 15px;

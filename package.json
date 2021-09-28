@@ -10,6 +10,12 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "element-ui": "^2.4.5",
+    "markdown-it": "^12.2.0",
+    "markdown-it-anchor": "^8.3.1",
+    "markdown-it-github": "^0.5.0",
+    "markdown-it-pdf": "^1.1.5",
+    "markdown-it-toc-and-anchor": "^4.2.0",
+    "markdown-it-toc-done-right": "^4.2.0",
     "scrollreveal": "^4.0.9",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
@@ -18,9 +24,13 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.0",
     "@vue/cli-service": "^4.5.0",
+    "generate-github-markdown-css": "^4.0.0",
     "less": "^4.1.1",
     "less-loader": "7.3.0",
+    "raw-loader": "^4.0.2",
     "vue-cli-plugin-element": "^1.0.1",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^5.54.0",
+    "webpack-cli": "^4.8.0"
   }
 }
