@@ -7,6 +7,12 @@
   <title>Document</title>
   <style>
 
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
     .container {
       overflow-x: hidden;
       overflow-y: auto;
@@ -34,9 +40,26 @@
       border-radius: 10px;
     }
 
+    #slide {
+      position: absolute;
+      top: 30px;
+      right: 50px;
+
+    }
+
+    #slide li {
+      cursor: pointer;
+    }
+
+    #slide li:hover {
+      color: green;
+    }
+
   </style>
 </head>
 <body>
+
+  <ul id="slide"></ul>
  
   <div class="container">
     <ul id="ul" class="list"></ul>
@@ -50,12 +73,39 @@ const body = document.body
 // body.style.height = window.innerHeight + 'px'
 // body.style.overflow = 'hidden'
 const ul = document.getElementById('ul')
+const slide = document.getElementById('slide')
+const container = document.querySelector('.container')
 const fragment = document.createDocumentFragment()
+const fragment2 = document.createDocumentFragment()
 
-const createLi = (backgroundColor) => {
+// container.addEventListener('scroll', e => {
+//   console.log('scrollTop: ', container.scrollTop)
+// }, top)
+
+slide.addEventListener('click', e => {
+  const el = e.target
+  console.log(el)
+  const node = document.getElementById(el.dataset.anchor)
+  const offsetTop = node.offsetTop
+  const scrollTop = node.scrollTop
+  const br = node.getBoundingClientRect()
+  console.log(node)
+  console.log('to: ', offsetTop)
+  // console.log('scrollTop: ', scrollTop)
+  console.log('from: ', container.scrollTop)
+  move(container.scrollTop, offsetTop, 2000, (x, y) => {
+    container.scrollTop = y
+  }).then(() => {
+    console.log('then: ', container.scrollTop)
+  })
+}, false)
+
+
+const createLi = (id, backgroundColor) => {
   const li = document.createElement('li')
   li.classList.add('item')
   li.style.backgroundColor = backgroundColor
+  li.id = id
   return li
 } 
 
@@ -76,11 +126,22 @@ const color = () => {
   return '#' + list.join('')
 }
 
+const s = [1, 15, 39, 60, 100, 130, 180, 198]
+
 while(n--) {
-  fragment.appendChild(createLi(color()))
+  fragment.appendChild(createLi(n, color()))
+  
+  if (s.indexOf(n) >= 0 ){
+    const li = document.createElement('li')
+    li.setAttribute('data-anchor', n)
+    li.innerHTML = 'Anchor' + n
+    fragment2.appendChild(li)
+  }
+  
 }
 
 ul.appendChild(fragment)
+slide.appendChild(fragment2)
 // setTimeout(() => {
 //   ScrollReveal().sync();
 // }, 100)
@@ -94,11 +155,125 @@ function init() {
     opacity: 0,
     scale: 0.8,
     delay: 100,
-    cleanup: true
+    cleanup: true,
+    container: '.container'
   })
   sr.reveal('.item')
   return sr
 }
+
+function scroll2(container, scrollTop, duration) {
+  return new Promise((resolve, reject) => {
+    let from = container.scrollTop
+    let to = scrollTop
+    let n = from > to ? -1 : 1
+    let t = 0
+    console.log('from: ', from)
+    console.log('to: ', to)
+    function move(st) {
+      if (t === 0) {
+        t = st
+        return requestAnimationFrame(move)
+      }
+      const delta = st - t
+      const val = easeInOutQuad(delta, from, to, duration)
+      const step = val * n
+      from = step
+      container.scrollTop = from
+      console.log('delta: ', delta)
+      console.log('step: ', step)
+      console.log('from: ', from)
+      if (delta < duration) {
+        requestAnimationFrame(move)
+      }  else {
+        // container.scrollTop = to
+        resolve()
+      }
+    }
+    requestAnimationFrame(move)
+  })
+}
+
+function easeInOutQuad(currentTime, startValue, changeValue, duration) {
+  currentTime /= duration / 2;
+  if (currentTime < 1) return changeValue / 2 * currentTime * currentTime + startValue;
+  currentTime--;
+  return -changeValue / 2 * (currentTime * (currentTime - 2) - 1) + startValue;
+}
+
+function scrollTo(container, from, to, duration) {
+  return new Promise((resolve, reject) => {
+    console.log('from: ', from)
+    console.log('to: ', to)
+    let t = 0
+    const move = st => {
+      if (t === 0) {
+        t = st
+      }
+      const delta = st - t
+      const current = easeInOutQuad(delta, from, to, duration)
+      container.scrollTop = current
+      console.log('delta: ', delta)
+      console.log('current: ', current)
+      if (delta < duration) {
+        requestAnimationFrame(move)
+      } else {
+        // container.scrollTop = to
+        console.log('end: ', current)
+        resolve()
+      }
+    }
+    requestAnimationFrame(move)
+  })
+}
+
+function move(from, to, duration, callback) {
+  return new Promise((resolve, reject) => {
+    if (typeof callback !== 'function') {
+      return reject(new TypeError('callback muse be a function.'))
+    }
+    if (from === to) {
+      return resolve()
+    }
+    const isIncrease = to > from
+    const max = isIncrease ? to : from
+    const min = isIncrease ? from : to
+    let t = 0
+    const move = s => {
+      if (t === 0) {
+        t = s
+      }
+      const x = s - t
+      const y = easeInOutCubic(x, min, max, duration)
+      if (x < duration) {
+        callback(x, isIncrease ? y : max - y)
+        requestAnimationFrame(move)
+      } else {
+        // callback(duration, to)
+        resolve()
+      }
+    }
+    requestAnimationFrame(move)
+  })
+}
+
+function easeInOutCubic(elapsed, initialValue, amountOfChange, duration) {
+	if ((elapsed /= duration / 2) < 1) {
+		return amountOfChange / 2 * elapsed * elapsed * elapsed + initialValue;
+	}
+	return amountOfChange / 2 * ((elapsed -= 2) * elapsed * elapsed + 2) + initialValue;
+}
+
+// move(0, 100, 2000)
+move(100, 0, 2000, (x, y) => {
+  console.log(`x: ${x}, y: ${y}`)
+}).then(() => {
+  move(-100, 0, 2000, (x, y) => {
+  console.log(`x: ${x}, y: ${y}`)
+})
+})
+
+
 
 
 </script>
