@@ -1,29 +1,8 @@
-# vue-test1
+# md-env-loader test
 
-## Project setup
-```
-npm install
-```
+- [process.env.BASE_URL]({{process.env.BASE_URL}})
+- [process.env.NODE_ENV]({{ process.env.NODE_ENV }})
+- [process.env.OUTPUT_PUBLIC_PATH]({{ process.env.OUTPUT_PUBLIC_PATH }})
+- [__filename]({{ __filename }})
+- [__dirname]({{ __dirname }})
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

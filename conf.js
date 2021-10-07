@@ -1,3 +1,23 @@
+define plugin run...
+[
+  {
+    'process.env': {
+      NODE_ENV: '"development"',
+      BASE_URL: '"/"',
+      OUTPUT_PUBLIC_PATH: '"/"'
+    }
+  }
+]
+process.getuid:  [Function: getuid]
+process.geteuid:  [Function: geteuid]
+process.getgid:  [Function: getgid]
+process.getegid:  [Function: getegid]
+process.setegid:  [Function]
+process.seteuid:  [Function]
+process.setgid:  [Function]
+process.setuid:  [Function]
+process.pid:  32260
+process.ppid:  32259
 {
   mode: 'development',
   context: '/Users/wucong/Desktop/projects/vue-test1',
@@ -13,7 +33,7 @@
   output: {
     path: '/Users/wucong/Desktop/projects/vue-test1/dist',
     filename: 'js/[name].js',
-    publicPath: '',
+    publicPath: '/',
     chunkFilename: 'js/[name].js'
   },
   resolve: {
@@ -63,7 +83,7 @@
             loader: '/Users/wucong/Desktop/projects/vue-test1/node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js',
             options: {
               cacheDirectory: '/Users/wucong/Desktop/projects/vue-test1/node_modules/.cache/vue-loader',
-              cacheIdentifier: '5df92352'
+              cacheIdentifier: '3eaf8c6e'
             }
           },
           /* config.module.rule('vue').use('vue-loader') */
@@ -74,7 +94,7 @@
                 whitespace: 'condense'
               },
               cacheDirectory: '/Users/wucong/Desktop/projects/vue-test1/node_modules/.cache/vue-loader',
-              cacheIdentifier: '5df92352'
+              cacheIdentifier: '3eaf8c6e'
             }
           }
         ]
@@ -495,9 +515,56 @@
               },
               /* config.module.rule('scss').oneOf('vue-modules').use('sass-loader') */
               {
-                loader: 'sass-loader',
+                loader: '/Users/wucong/Desktop/projects/vue-test1/node_modules/sass-loader/dist/cjs.js',
                 options: {
-                  sourceMap: false
+                  sourceMap: false,
+                  implementation: {
+                    render: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    renderSync: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    info: 'dart-sass\t1.42.1\t(Sass Compiler)\t[Dart]\ndart2js\t2.14.2\t(Dart Compiler)\t[Dart]',
+                    types: {
+                      Boolean: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Color: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      List: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Map: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Null: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Number: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      String: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Error: function Error() { [native code] }
+                    },
+                    NULL: {
+                      toString: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      }
+                    },
+                    TRUE: {
+                      value: true
+                    },
+                    FALSE: {
+                      value: false
+                    },
+                    cli_pkg_main_0_: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    }
+                  }
                 }
               }
             ]
@@ -534,9 +601,56 @@
               },
               /* config.module.rule('scss').oneOf('vue').use('sass-loader') */
               {
-                loader: 'sass-loader',
+                loader: '/Users/wucong/Desktop/projects/vue-test1/node_modules/sass-loader/dist/cjs.js',
                 options: {
-                  sourceMap: false
+                  sourceMap: false,
+                  implementation: {
+                    render: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    renderSync: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    info: 'dart-sass\t1.42.1\t(Sass Compiler)\t[Dart]\ndart2js\t2.14.2\t(Dart Compiler)\t[Dart]',
+                    types: {
+                      Boolean: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Color: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      List: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Map: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Null: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Number: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      String: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Error: function Error() { [native code] }
+                    },
+                    NULL: {
+                      toString: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      }
+                    },
+                    TRUE: {
+                      value: true
+                    },
+                    FALSE: {
+                      value: false
+                    },
+                    cli_pkg_main_0_: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    }
+                  }
                 }
               }
             ]
@@ -576,9 +690,56 @@
               },
               /* config.module.rule('scss').oneOf('normal-modules').use('sass-loader') */
               {
-                loader: 'sass-loader',
+                loader: '/Users/wucong/Desktop/projects/vue-test1/node_modules/sass-loader/dist/cjs.js',
                 options: {
-                  sourceMap: false
+                  sourceMap: false,
+                  implementation: {
+                    render: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    renderSync: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    info: 'dart-sass\t1.42.1\t(Sass Compiler)\t[Dart]\ndart2js\t2.14.2\t(Dart Compiler)\t[Dart]',
+                    types: {
+                      Boolean: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Color: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      List: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Map: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Null: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Number: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      String: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Error: function Error() { [native code] }
+                    },
+                    NULL: {
+                      toString: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      }
+                    },
+                    TRUE: {
+                      value: true
+                    },
+                    FALSE: {
+                      value: false
+                    },
+                    cli_pkg_main_0_: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    }
+                  }
                 }
               }
             ]
@@ -614,9 +775,56 @@
               },
               /* config.module.rule('scss').oneOf('normal').use('sass-loader') */
               {
-                loader: 'sass-loader',
+                loader: '/Users/wucong/Desktop/projects/vue-test1/node_modules/sass-loader/dist/cjs.js',
                 options: {
-                  sourceMap: false
+                  sourceMap: false,
+                  implementation: {
+                    render: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    renderSync: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    info: 'dart-sass\t1.42.1\t(Sass Compiler)\t[Dart]\ndart2js\t2.14.2\t(Dart Compiler)\t[Dart]',
+                    types: {
+                      Boolean: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Color: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      List: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Map: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Null: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Number: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      String: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Error: function Error() { [native code] }
+                    },
+                    NULL: {
+                      toString: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      }
+                    },
+                    TRUE: {
+                      value: true
+                    },
+                    FALSE: {
+                      value: false
+                    },
+                    cli_pkg_main_0_: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    }
+                  }
                 }
               }
             ]
@@ -662,9 +870,56 @@
               },
               /* config.module.rule('sass').oneOf('vue-modules').use('sass-loader') */
               {
-                loader: 'sass-loader',
+                loader: '/Users/wucong/Desktop/projects/vue-test1/node_modules/sass-loader/dist/cjs.js',
                 options: {
                   sourceMap: false,
+                  implementation: {
+                    render: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    renderSync: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    info: 'dart-sass\t1.42.1\t(Sass Compiler)\t[Dart]\ndart2js\t2.14.2\t(Dart Compiler)\t[Dart]',
+                    types: {
+                      Boolean: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Color: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      List: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Map: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Null: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Number: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      String: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Error: function Error() { [native code] }
+                    },
+                    NULL: {
+                      toString: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      }
+                    },
+                    TRUE: {
+                      value: true
+                    },
+                    FALSE: {
+                      value: false
+                    },
+                    cli_pkg_main_0_: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    }
+                  },
                   sassOptions: {
                     indentedSyntax: true
                   }
@@ -704,9 +959,56 @@
               },
               /* config.module.rule('sass').oneOf('vue').use('sass-loader') */
               {
-                loader: 'sass-loader',
+                loader: '/Users/wucong/Desktop/projects/vue-test1/node_modules/sass-loader/dist/cjs.js',
                 options: {
                   sourceMap: false,
+                  implementation: {
+                    render: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    renderSync: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    info: 'dart-sass\t1.42.1\t(Sass Compiler)\t[Dart]\ndart2js\t2.14.2\t(Dart Compiler)\t[Dart]',
+                    types: {
+                      Boolean: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Color: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      List: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Map: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Null: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Number: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      String: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Error: function Error() { [native code] }
+                    },
+                    NULL: {
+                      toString: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      }
+                    },
+                    TRUE: {
+                      value: true
+                    },
+                    FALSE: {
+                      value: false
+                    },
+                    cli_pkg_main_0_: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    }
+                  },
                   sassOptions: {
                     indentedSyntax: true
                   }
@@ -749,9 +1051,56 @@
               },
               /* config.module.rule('sass').oneOf('normal-modules').use('sass-loader') */
               {
-                loader: 'sass-loader',
+                loader: '/Users/wucong/Desktop/projects/vue-test1/node_modules/sass-loader/dist/cjs.js',
                 options: {
                   sourceMap: false,
+                  implementation: {
+                    render: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    renderSync: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    info: 'dart-sass\t1.42.1\t(Sass Compiler)\t[Dart]\ndart2js\t2.14.2\t(Dart Compiler)\t[Dart]',
+                    types: {
+                      Boolean: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Color: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      List: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Map: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Null: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Number: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      String: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Error: function Error() { [native code] }
+                    },
+                    NULL: {
+                      toString: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      }
+                    },
+                    TRUE: {
+                      value: true
+                    },
+                    FALSE: {
+                      value: false
+                    },
+                    cli_pkg_main_0_: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    }
+                  },
                   sassOptions: {
                     indentedSyntax: true
                   }
@@ -790,9 +1139,56 @@
               },
               /* config.module.rule('sass').oneOf('normal').use('sass-loader') */
               {
-                loader: 'sass-loader',
+                loader: '/Users/wucong/Desktop/projects/vue-test1/node_modules/sass-loader/dist/cjs.js',
                 options: {
                   sourceMap: false,
+                  implementation: {
+                    render: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    renderSync: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    },
+                    info: 'dart-sass\t1.42.1\t(Sass Compiler)\t[Dart]\ndart2js\t2.14.2\t(Dart Compiler)\t[Dart]',
+                    types: {
+                      Boolean: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Color: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      List: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Map: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Null: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      },
+                      Number: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      String: function () {
+                        return _call(f, this, Array.prototype.slice.apply(arguments));
+                      },
+                      Error: function Error() { [native code] }
+                    },
+                    NULL: {
+                      toString: function () {
+                        return _call(f, Array.prototype.slice.apply(arguments));
+                      }
+                    },
+                    TRUE: {
+                      value: true
+                    },
+                    FALSE: {
+                      value: false
+                    },
+                    cli_pkg_main_0_: function () {
+                      return _call(f, Array.prototype.slice.apply(arguments));
+                    }
+                  },
                   sassOptions: {
                     indentedSyntax: true
                   }
@@ -1164,7 +1560,7 @@
             loader: '/Users/wucong/Desktop/projects/vue-test1/node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js',
             options: {
               cacheDirectory: '/Users/wucong/Desktop/projects/vue-test1/node_modules/.cache/babel-loader',
-              cacheIdentifier: 'd2974176'
+              cacheIdentifier: '8c77e24a'
             }
           },
           /* config.module.rule('js').use('babel-loader') */
@@ -1180,7 +1576,17 @@
         use: [
           /* config.module.rule('md').use('raw-loader') */
           {
-            loader: 'raw-loader'
+            loader: 'raw-loader',
+            options: {
+              esModule: false
+            }
+          },
+          /* config.module.rule('md').use('md-env-loader') */
+          {
+            loader: '/Users/wucong/Desktop/projects/vue-test1/md-env-loader.js',
+            options: {
+              g: Function('return this')()
+            }
           }
         ]
       }
@@ -1254,7 +1660,8 @@
       {
         'process.env': {
           NODE_ENV: '"development"',
-          BASE_URL: '""'
+          BASE_URL: '"/"',
+          OUTPUT_PUBLIC_PATH: '"/"'
         }
       }
     ),
