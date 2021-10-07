@@ -41,11 +41,11 @@ module.exports = {
         esModule: false
       })
       .end()
-      .use('md-env-loader')
-      .loader(path.join(__dirname, '.', 'md-env-loader.js'))
-      .options({
-        g: global
-      })
+    // .use('md-env-loader')
+    // .loader(path.join(__dirname, '.', 'md-env-loader.js'))
+    // .options({
+    //   g: global
+    // })
 
     config
       .plugin('define')

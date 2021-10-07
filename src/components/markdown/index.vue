@@ -31,6 +31,7 @@
 import MarkdownIt from "markdown-it";
 import MarkdownItHighlight from "markdown-it-highlightjs";
 import markdownItTocDoneRight from "markdown-it-toc-done-right";
+import { getValueByPath } from "@/utils";
 
 export default {
   name: "Markdown",
@@ -136,7 +137,11 @@ export default {
       // console.log(this.markdownIt);
       try {
         // console.log(this.markdownIt.render(val));
-        this.html = this.markdownIt.render(val);
+        console.log("process: ", process);
+        console.log("process.env: ", process.env);
+        const text = this.replaceMarkdowVariables(val);
+        console.log("onMarkdownChange text: ", text);
+        this.html = this.markdownIt.render(text);
         // this.tokens = this.markdownIt.parse(val);
         // console.log("tokens: ", this.tokens);
       } catch (e) {
@@ -144,9 +149,20 @@ export default {
         this.html = "";
       }
     },
+
+    replaceMarkdowVariables(markdownContent) {
+      const varReg =
+        /\{\{\s*([^\{\}\f\n\r\t\v\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]+)\s*\}\}/gim;
+      return markdownContent.replace(varReg, (m, p) => {
+        console.log("m: ", m);
+        console.log("p: ", p);
+        return getValueByPath(process.env, p);
+      });
+    },
     createHtmlByTokens(tokens) {
       const stack = [];
       for (let i = 0; i < tokens.length; i++) {}
+      str.replace;
     },
     genHeaderAst(ast) {
       const result = [];
