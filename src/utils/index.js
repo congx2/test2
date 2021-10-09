@@ -9,7 +9,18 @@ export const getStringTag = value => {
 }
 
 export const isPrimitive = value => {
-  return value === null || typeof value !== 'object'
+  if (value === null) {
+    return true
+  }
+  const primitives = [
+    'undefined',
+    'string',
+    'number',
+    'boolean',
+    'symbol',
+    'bigint'
+  ]
+  return primitives.indexOf(typeof value) !== -1
 }
 
 export const hasKey = (object, key) => {
@@ -71,4 +82,26 @@ export const getValueByPath = (object, path, defaultValue) => {
 
   const val = index && index === size ? object : undefined
   return val === undefined ? defaultValue : val
+}
+
+
+export const deepClone = value => {
+  if (isPrimitive(value)) {
+    return value
+  }
+
+  const tag = getStringTag(value)
+  if (tag === 'String' || tag === 'Number' || tag === 'Boolean' || tag === 'Date') {
+    return new value.constructor(value.valueOf())
+  }
+
+  if (tag === 'Symbol' || tag === 'BigInt') {
+    return Object(value)
+  }
+
+  if (tag === 'RegExp') {
+    const source = value.source
+    const flag = value.toString().split('/').pop()
+    return new RegExp(source, flag)
+  }
 }

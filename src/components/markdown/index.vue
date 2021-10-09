@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="side">
-      <ul @click="scroll2">
+      <ul>
         <li
           v-for="h2 in headers"
           data-tag="h2"
@@ -14,7 +14,9 @@
               v-for="h3 in h2.children"
               data-tag="h3"
               :data-index="h3.index"
-              class="item"
+              class="item item-h3"
+              :class="{ active: h3.index === h3ActiveIndex }"
+              @click="scroll2(h3.index)"
             >
               {{ h3.label }}
             </li>
@@ -59,10 +61,15 @@ export default {
       tokens: [],
       headers: [],
       isMounted: false,
+      h3ActiveIndex: 0,
     };
   },
 
   computed: {
+    headerHeight() {
+      return 64;
+    },
+
     finalOptions() {
       const defaultOptions = {
         highlight: function (str, language) {
@@ -114,6 +121,8 @@ export default {
     this.markdownIt = markdownIt;
     console.log(this.markdownIt);
     this.onMarkdownChange(this.markdown);
+    this.h3topList = [];
+    this.highlightViewportRange = { min: 0, max: 0 };
   },
 
   mounted() {
@@ -124,9 +133,90 @@ export default {
       this.h2s = [...this.$refs.makdownBody.querySelectorAll("h2")];
       this.h3s = [...this.$refs.makdownBody.querySelectorAll("h3")];
     });
+
+    this.highlightSlideMenuHandler = this.throttle(this.highlightSlideMenu, 16);
+    document.body.addEventListener(
+      "scroll",
+      this.highlightSlideMenuHandler,
+      false
+    );
+  },
+
+  beforeDestroy() {
+    document.body.removeEventListener(
+      "resize",
+      this.highlightSlideMenuHandler,
+      false
+    );
   },
 
   methods: {
+    throttle(fn, delay) {
+      let timerId = null;
+      return (...args) => {
+        if (typeof fn !== "function" || timerId) {
+          return;
+        }
+        timerId = setTimeout(() => {
+          fn(...args);
+          timerId = null;
+        }, delay);
+      };
+    },
+
+    /**
+     * 当每次渲染html的时候计算一次h3的 BoundingClientRect 信息
+     * 滚动的时候使用 scrollTop 和 每个 h3 的 rect.top 或 rect.bottom 比较，性能更好
+     */
+    updatetH3topList() {
+      const container = this.$refs.makdownBody;
+      if (!container) {
+        return;
+      }
+      const h3list = [...container.querySelectorAll("h3")];
+      const topList = h3list.map((item) => {
+        return item.getBoundingClientRect().bottom;
+      });
+      this.h3topList = topList;
+    },
+
+    /**
+     * 滚动时直接使用 scrollTop 和以及计算好的 h3 rect 比较，不需要实时计算
+     */
+    highlightSlideMenu(e) {
+      const size = this.h3topList.length;
+      if (!size) {
+        return;
+      }
+
+      const scrollTop = e.target.scrollTop;
+      let index = -1;
+
+      for (let i = 0; i < size; i++) {
+        const top = this.h3topList[i];
+        if (scrollTop + this.headerHeight < top) {
+          index = i;
+          break;
+        }
+      }
+
+      if (index !== -1) {
+        this.h3ActiveIndex = index;
+      }
+    },
+
+    /**
+     * 锚点菜单项点击时，直接滚动到已经计算好的位置
+     */
+    scroll2(index) {
+      const top = this.h3topList[index];
+      if (top === undefined) {
+        return;
+      }
+      this.h3ActiveIndex = index;
+      document.body.scrollTop = top - this.headerHeight;
+    },
+
     onMarkdownChange(val, oldVal) {
       // console.log("onMarkdownChange val: ", val);
       // console.log("onMarkdownChange oldVal: ", oldVal);
@@ -142,6 +232,9 @@ export default {
         const text = this.replaceMarkdowVariables(val);
         console.log("onMarkdownChange text: ", text);
         this.html = this.markdownIt.render(text);
+        this.$nextTick(() => {
+          this.updatetH3topList();
+        });
         // this.tokens = this.markdownIt.parse(val);
         // console.log("tokens: ", this.tokens);
       } catch (e) {
@@ -159,11 +252,13 @@ export default {
         return getValueByPath(process.env, p);
       });
     },
+
     createHtmlByTokens(tokens) {
       const stack = [];
       for (let i = 0; i < tokens.length; i++) {}
       str.replace;
     },
+
     genHeaderAst(ast) {
       const result = [];
       let h2i = 0;
@@ -195,6 +290,7 @@ export default {
       return result;
     },
     scrollTo(container, scrollTop) {},
+
     animate(from, to, duration, callback) {
       if (typeof callback !== "function") {
         return reject(new TypeError("callback muse be a function."));
@@ -219,42 +315,7 @@ export default {
       };
       requestAnimationFrame(move);
     },
-    findElement(el, className) {
-      let node = el;
-      while (node) {
-        if (node.classList.contains(className)) {
-          return node;
-        }
-        node = node.parentNode;
-      }
-      return null;
-    },
-    scroll2(event) {
-      const el = event.target;
-      console.log(el);
-      if (
-        !this.isMounted ||
-        !el ||
-        el.nodeType !== Node.ELEMENT_NODE ||
-        !this.findElement(el, "item")
-      ) {
-        return;
-      }
-      const { tag, index } = el.dataset;
-      const list = this[`${tag}s`];
-      const target = list[index];
-      const container = document.body;
-      const from = container.scrollTop;
-      const offsetTop = target.getBoundingClientRect().top;
-      const to = offsetTop + from;
 
-      // target.scrollIntoView();
-      console.log(target);
-      this.animate(from, to, 650, (x, y) => {
-        console.log(y);
-        container.scrollTop = y;
-      });
-    },
     easeInOutCubic(t, start, end, duration) {
       if ((t /= duration / 2) < 1) {
         return (end / 2) * t * t * t + start;
@@ -283,5 +344,9 @@ export default {
   right: 0;
   z-index: 2;
   background-color: #fff;
+
+  .item-h3.active {
+    color: red;
+  }
 }
 </style>

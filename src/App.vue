@@ -8,8 +8,8 @@
 
 <script>
 import Markdown from "@/components/markdown";
-// import mdtxt from "@/components/markdown/demo.md";
-import mdtxt from "../README.md";
+import mdtxt from "@/components/markdown/demo.md";
+// import mdtxt from "../README.md";
 
 export default {
   name: "app",
