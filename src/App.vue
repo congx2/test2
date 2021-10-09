@@ -1,8 +1,11 @@
 <template>
   <div id="app">
+    <div class="heahder"></div>
     <!-- <router-view></router-view> -->
     <!-- 1234 -->
-    <markdown :markdown="mdtxt"></markdown>
+    <div class="container">
+      <markdown :markdown="mdtxt"></markdown>
+    </div>
   </div>
 </template>
 
@@ -48,10 +51,27 @@ export default {
 <style>
 html,
 body {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: auto;
+}
+.heahder {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  width: 100%;
+  height: 64px;
+  border-bottom: 1px solid #f8f8f8;
+  background-color: plum;
+}
+.container {
+  position: relative;
+  box-sizing: border-box;
+  padding-top: 64px;
 }
 </style>

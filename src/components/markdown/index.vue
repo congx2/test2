@@ -121,8 +121,8 @@ export default {
     this.markdownIt = markdownIt;
     console.log(this.markdownIt);
     this.onMarkdownChange(this.markdown);
-    this.h3topList = [];
-    this.highlightViewportRange = { min: 0, max: 0 };
+    this.h3Rects = [];
+    this.preScrollTop = 0;
   },
 
   mounted() {
@@ -174,47 +174,70 @@ export default {
         return;
       }
       const h3list = [...container.querySelectorAll("h3")];
-      const topList = h3list.map((item) => {
-        return item.getBoundingClientRect().bottom;
-      });
-      this.h3topList = topList;
+      this.h3Rects = h3list.map((item) => item.getBoundingClientRect());
     },
 
     /**
      * 滚动时直接使用 scrollTop 和以及计算好的 h3 rect 比较，不需要实时计算
      */
     highlightSlideMenu(e) {
-      const size = this.h3topList.length;
+      const size = this.h3Rects.length;
       if (!size) {
         return;
       }
 
       const scrollTop = e.target.scrollTop;
+      const direction = scrollTop - this.preScrollTop > 100 ? 1 : -1;
+      const viewportPosition = Math.floor(window.innerHeight / 2);
       let index = -1;
+      let pick = false;
+      let current = 0;
 
-      for (let i = 0; i < size; i++) {
-        const top = this.h3topList[i];
-        if (scrollTop + this.headerHeight < top) {
-          index = i;
-          break;
+      while (current < size) {
+        const { top, bottom } = this.h3Rects[current];
+        const base = top - this.headerHeight;
+        const condition = direction > 0 ? scrollTop > base : scrollTop <= base;
+        // 区分滚动方向，效果更好
+        if (direction > 0) {
+          if (scrollTop > base) {
+            pick = true;
+            current++;
+            continue;
+          }
+          if (pick) {
+            console.log("current: ", current);
+            pick = false;
+            index = current - 1;
+            break;
+          } else {
+            current++;
+          }
+        } else {
+          if (scrollTop <= base) {
+            index = current;
+            break;
+          } else {
+            current++;
+          }
         }
       }
 
       if (index !== -1) {
         this.h3ActiveIndex = index;
       }
+      this.preScrollTop = scrollTop;
     },
 
     /**
      * 锚点菜单项点击时，直接滚动到已经计算好的位置
      */
     scroll2(index) {
-      const top = this.h3topList[index];
-      if (top === undefined) {
+      const rect = this.h3Rects[index];
+      if (rect === undefined) {
         return;
       }
       this.h3ActiveIndex = index;
-      document.body.scrollTop = top - this.headerHeight;
+      document.body.scrollTop = rect.top - this.headerHeight;
     },
 
     onMarkdownChange(val, oldVal) {
@@ -339,11 +362,13 @@ export default {
 
 <style lang="scss" scoped>
 .side {
-  position: absolute;
-  top: 30px;
+  position: fixed;
+  top: 80px;
   right: 0;
+  bottom: 30px;
   z-index: 2;
   background-color: #fff;
+  overflow: auto;
 
   .item-h3.active {
     color: red;
